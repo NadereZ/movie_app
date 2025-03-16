@@ -21,10 +21,10 @@ function Home() {
         finally{
           setLoading(false)
           }
-      }
+      };
 
-      loadPopularMovies()
-    }, [])
+    loadPopularMovies();
+    }, []);
 
     const handleSearch = (e) => {
         e.preventDefault()
