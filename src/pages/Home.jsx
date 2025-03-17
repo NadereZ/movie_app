@@ -47,13 +47,18 @@ function Home() {
             <button type='submit' className='search-button'>Search</button>
         </form>
 
-      <div className='movie-grid'>
-        {movies.map(
-            (movie) => (
-            <MovieCard movie={movie} key={movie.id}/>
-            
-            ))}
-      </div>
+          {error && <div className='error-message'>{error}</div>}
+          
+          {loading ? (<div className='loding'>Loding...</div>) : (
+              <div className='movie-grid'>
+              {movies.map(
+                  (movie) => (
+                  <MovieCard movie={movie} key={movie.id}/>
+                  
+                  ))}
+            </div>
+          )}
+      
     </div>
   );
 }
