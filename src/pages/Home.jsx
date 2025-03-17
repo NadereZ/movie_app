@@ -26,14 +26,23 @@ function Home() {
     loadPopularMovies();
     }, []);
 
-    const handleSearch = (e) => {
-        e.preventDefault()
-        alert(searchQuery)
-        setSearchQuery('')
-        
-    }
-
-
+    const handleSearch = async (e) => {
+      e.preventDefault();
+      if (!searchQuery.trim()) return
+      if (loading) return
+  
+      setLoading(true)
+      try {
+          const searchResults = await searchMovies(searchQuery)
+          setMovies(searchResults)
+          setError(null)
+      } catch (err) {
+          console.log(err)
+          setError("Failed to search movies...")
+      } finally {
+          setLoading(false)
+      }
+    };
 
   return (
     <div className='home'>
@@ -48,8 +57,8 @@ function Home() {
         </form>
 
           {error && <div className='error-message'>{error}</div>}
-          
-          {loading ? (<div className='loding'>Loding...</div>) : (
+
+          {loading ? (<div className='laoding'>Laoding...</div>) : (
               <div className='movie-grid'>
               {movies.map(
                   (movie) => (
